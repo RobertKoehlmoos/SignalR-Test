@@ -22,6 +22,8 @@ namespace SignalRChat
                 {
                     webBuilder.UseStartup<Startup>()
                     .UseUrls("http://172.90.0.67:5001/");
+                    //change the above line to your local ip address
+                    //to let other people access your website
                 });
     }
 }
