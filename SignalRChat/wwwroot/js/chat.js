@@ -13,6 +13,13 @@ connection.on("ReceiveMessage", (user, message) => {
     document.getElementById("messagesList").appendChild(li);
 });
 
+connection.on("Announce", message => {
+    const msg = "Announcement: " + message;
+    const li = document.createElement("li");
+    li.textContent = msg
+    document.getElementById("messagesList").appendChild(li)
+})
+
 connection.start().then( () => {
     document.getElementById("sendButton").disabled = false;
 }).catch( err => {
@@ -23,6 +30,14 @@ document.getElementById("sendButton").addEventListener("click", event => {
     const user = document.getElementById("userInput").value;
     const message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", user, message).catch( err => {
+        return console.error(err.toString());
+    });
+    event.preventDefault();
+});
+
+document.getElementById("announceButton").addEventListener("click", event => {
+    const message = document.getElementById("announcementInput").value;
+    connection.invoke("Announce", message).catch( err => {
         return console.error(err.toString());
     });
     event.preventDefault();
